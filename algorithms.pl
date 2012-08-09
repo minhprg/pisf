@@ -1,6 +1,6 @@
 #!/usr/bin/perl
-
 use utf8;
+use Image::BMP;
 
 sub learnText {
 	

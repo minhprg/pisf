@@ -1,15 +1,12 @@
 #!/usr/bin/perl
+use utf8;
+use Image::BMP;
 
 require "algorithms.pl";
 
-use utf8;
-
-print "Hello, world!\n";
-
-&helloWorld();
-
-@lines = `perldoc -u -f atan2`; 
-foreach (@lines) {
-	s/\w<([^>]+)>/\U$1/g;
-	#print; 
-}
+my $img2 = new Image::BMP;
+$img2->open_file('test.bmp');
+my $color = $img2->xy(202,10);        # Get pixel at 100,100
+my ($r,$g,$b) = $img2->xy_rgb(202,40);
+print "Size:".$img2->{Width}.'-'.$img2->{Height}."\n";
+print $r.'-'.$g.'-'.$b."\n";
