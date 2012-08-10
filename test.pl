@@ -9,4 +9,5 @@ $img2->open_file('test.bmp');
 my $color = $img2->xy(202,10);        # Get pixel at 100,100
 my ($r,$g,$b) = $img2->xy_rgb(202,40);
 print "Size:".$img2->{Width}.'-'.$img2->{Height}."\n";
+print "Color: ".$img2->{ColorsUsed}."\n";
 print $r.'-'.$g.'-'.$b."\n";
