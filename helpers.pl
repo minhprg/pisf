@@ -2,6 +2,7 @@
 
 use utf8;
 use Image::BMP;
+use Image::Magick;
 
 my $data;
 my $width, $height;
@@ -21,6 +22,15 @@ sub readBMP{
 		}
 	}
 	$data;
+}
+
+sub readFile(){
+	my $image = new Image::Magick;
+	$image->Read($_[0]);
+	$width  = $image->Get('width');
+	$height = $image->Get('height');
+	print "Width : $width\n";
+	print "Height: $height\n";
 }
 
 sub rgb2gray{
