@@ -1,0 +1,7 @@
+1. edit config.pl
+
+2. perl init_pop.pl
+
+3. train_ga.pl
+
+4. the result is saved in configuration.pl
