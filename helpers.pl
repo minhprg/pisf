@@ -37,11 +37,19 @@ sub readFile(){
 		foreach $p (@data){
 			$p = int($p * 255);
 		}
-		$data;
 	};
 	if ($@){
 		print "$@";
 	}
+	$data;
+}
+
+sub readPGM(){
+	if ($_[0] eq undef){
+		print "File name required.\n";
+		return;
+	}
+	
 }
 
 sub image2PGM(){
@@ -76,11 +84,42 @@ sub image2PGM(){
 	print $name . " converted to PGM.\n";
 }
 
+sub writePGM(){
+	if ($_[0] eq undef){
+		print "File name required.\n"; return;
+	}
+	if (scalar(@data) < 1) {print "Nothing to write."; return;}
+	
+	my ($name, $dir) = fileparse $_[0];
+	eval {mkdir($dir);};
+	if (-e $_[0]){ $_[0] = $dir . "cp_".$name;}
+	
+	open(imageFile, ">".$_[0]) || die ('cannot write file.');
+	print imageFile 'P2'."\n$width $height\n255\n";
+	foreach $x (0..$width-1){
+		foreach $y (0..$height-1){
+			$val = shift(@data);
+			print imageFile "$val ";
+		}
+		print imageFile "\n";
+	}
+	close(imageFile);
+}
+
 sub bmp2pgm {
 	
 }
 
 sub pgm2features {
+	if ($_[0] eq undef || $_[1] eq undef){
+		print "Params required.\n";
+		return;
+	}
+	if ($_[0] > $_[1]) {print "Invalid params"; return;}
 	
+	foreach $p (@data){
+		if ($p < $_[0] || $p > $_[1]){ $p = 255;}
+	}
+	$data;
 }
 return true;
