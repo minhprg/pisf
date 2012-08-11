@@ -1,0 +1,71 @@
+#!/usr/bin/perl
+
+use utf8;
+use Image::BMP;
+use Image::Magick;
+
+my $data;
+my $width, $height;
+#reading the BMP file and return an array of gray-scale pixels
+#param 0: file path.
+sub readFile(){
+	eval{
+		my $image = new Image::Magick;
+		$image->Read($_[0]) || throw Exception->new("Cannot open file: ".$_[0]);
+		$width  = $image->Get('width');
+		$height = $image->Get('height');
+		@data = $image->GetPixels(map=>'I', height=>$height, width=>$width, normalize=>true);
+		my $count = 0;
+		foreach $p (@data){
+			$p = int($p * 255);
+		}
+		$data;
+	};
+	if ($@){
+		print "$@";
+	}
+}
+
+sub image2PGM(){
+	if ($_[0] eq undef){
+		print "File name param required.\n";
+		return;
+	}
+	&readFile($_[0]);
+	if (scalar(@data) <= 0){
+		return;
+	}
+	my $name;
+	if (index($_[0], '/') gt 0){
+		$name = substr($_[0], index($_[0], "/"));
+	}else{
+		$name = $_[0];
+	}
+	my $output;
+	if ($_[1] ne undef){
+		$output = $_[1].'/'.$name.'.pgm';
+	}else{
+		$output = "pgm/".$name.'.pgm';
+	}
+	
+	open(imageFile, ">".$output);
+	print imageFile 'P2'."\n$width $height\n255\n";
+	foreach $x (0..$width-1){
+		foreach $y (0..$height-1){
+			$val = shift(@data);
+			print imageFile "$val ";
+		}
+		print imageFile "\n";
+	}
+	close(imageFile);
+	print $output . " converted to PGM.\n";
+}
+
+sub bmp2pgm {
+	&readBMP($_[0]);
+}
+
+sub pgm2features {
+	
+}
+return true;

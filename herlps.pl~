@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+use utf8;
+
+require 'helpers.pl';
+
+#&image2PGM('this not exist');
+&image2PGM('test.bmp');
