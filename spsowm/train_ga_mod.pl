@@ -24,7 +24,7 @@
 #*                                                                      *
 #************************************************************************
 
-$start_time = time ();
+
 
 require "./config.pl";
 require "./misc.pl";
@@ -57,11 +57,19 @@ $save_best_obj = 100;
 
 
 # Read image
-my $dir = "../pgm/ham";
+my $dir = "../pgm/spam";
 opendir(DIR, $dir);
 while(my $file = readdir(DIR)){
 	if (not ($file eq "." || $file eq "..")){
+		$start_time = time ();
 		@BEST_CHROMOSOME = undef;
+		@POPULATION = undef;
+		@POPULATION2 = undef;
+		@OBJECTIVE = undef;
+		@OBJECTIVE2 = undef;
+		@TEMP = undef;
+		@GREY_MAX = undef;
+		@PROP_I = undef;
 		$|=1;
 
 		srand (time ^ $$ ^ unpack "%L*", `ps axww | gzip -f`);
