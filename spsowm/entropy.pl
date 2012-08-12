@@ -3,17 +3,15 @@ sub read_image
 {
 	my ($image) = @_;
 
-	open FP, "< $image";
+	open FP, "< $image" or die("Unable to open file $image");
 
 	$line = <FP>;
-	$line = <FP>;
-
+	#$line = <FP>;
 	$line = <FP>;
 	chop $line;
 	$line =~ s/[^\d]+$//;
 
 	my ($mm, $nn) = split /\s+/, $line; # mm * nn
-
 	$line = <FP>;
 	chop $line;
 	$line =~ s/[^\d]+$//;
