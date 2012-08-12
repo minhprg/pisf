@@ -110,7 +110,7 @@ while(my $file = readdir(DIR)){
 
 			if ($BEST_OBJECTIVE < $save_best_obj)
 			{
-				&add_chromosome (\@BEST_CHROMOSOME, $file);
+				&add_chromosome (\@BEST_CHROMOSOME, $dir.$file);
 
 				$save_best_obj = $BEST_OBJECTIVE;
 				print $time." ".$iter." ".$BEST_OBJECTIVE."\n";
