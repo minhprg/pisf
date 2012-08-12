@@ -27,10 +27,10 @@ sub initialization_ga
 {
         for (my $i = 0; $i < $POP_SIZE; $i ++)
         {
-		for (my $k = 0; $k < $NUMBER_OF_INPUT; $k ++)
-		{
-			$POPULATION2[$i]->[$k] = 0;
-		}
+			for (my $k = 0; $k < $NUMBER_OF_INPUT; $k ++)
+			{
+				$POPULATION2[$i]->[$k] = 0;
+			}
         }
 } # end of initialization
 

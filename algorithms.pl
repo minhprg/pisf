@@ -2,19 +2,7 @@
 use utf8;
 use Image::BMP;
 
-sub learnText {
-	
-}
-
 sub naiveBayesianClassifer {
-	
-}
-
-sub collectTokens {
-	
-}
-
-sub collectTokensByClass {
 	
 }
 
