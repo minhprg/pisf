@@ -148,6 +148,22 @@ sub store_population
 	close SP_FP;
 }
 
+sub add_chromosome
+{
+	my ($ch, $file) = @_;
+	
+	open PC_FP, ">./entropy_$file.txt";
+	for (my $k = 0; $k < $NUMBER_OF_INPUT - 1; $k ++)
+	{
+		print PC_FP $ch->[$k]." ";
+	}		
+
+	print PC_FP $ch->[$NUMBER_OF_INPUT - 1];
+	
+	print PC_FP "\n";
+	close(PC_FP);
+}
+
 sub print_chromosome
 {
 	my ($ch) = @_;

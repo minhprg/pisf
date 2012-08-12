@@ -44,12 +44,26 @@ sub readFile(){
 	$data;
 }
 
+#read no-comments PGM file only.
+#this is for simple and fast.
+#It's error if there's comment.
 sub readPGM(){
 	if ($_[0] eq undef){
 		print "File name required.\n";
 		return;
 	}
+	#try to open file.
+	open(FILE, '<'.$_[0]) or die ("Unable to open file.");
+	#ignore the first line.
+	my $line = <FILE>;
+	#read size
+	$line = <FILE>;
+	chomp($line);
+	my ($width, $height) = qw("$line");
 	
+	$line = <FILE>;
+	my $color = chomp($line); #read color range.
+	print "$width - $height - $color\n";
 }
 
 sub image2PGM(){
