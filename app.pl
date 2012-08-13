@@ -12,7 +12,6 @@ $TESTCASE = 1;
 learnBayesianThreshold();
 
 
-
 my @arr = &getAllThreshold($TESTCASE, 1);
 my @b = &getDistinctThreshold(@arr);
 foreach $t (@b){
