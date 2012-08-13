@@ -1,6 +1,6 @@
 # Settings of BBNN
 
-$NUMBER_OF_INPUT = 5;
+$NUMBER_OF_INPUT = 15;
 $IMAGE = "/home/qa/spsowm-5.0/lena.pgm";
 
 
@@ -16,7 +16,7 @@ $X_MIN = 0;
 
 
 # Settings of Evolution
-$POP_SIZE = 10;
+$POP_SIZE = 16;
 
 # Settings of GA
 $P_CROSSOVER = 0.001;

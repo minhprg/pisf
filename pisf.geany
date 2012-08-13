@@ -17,10 +17,11 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=2
+current_page=3
 FILE_NAME_0=323;Perl;0;16;1;1;0;/home/myth/_HANU/pisf/test.pl;0;4
 FILE_NAME_1=255;Perl;0;16;1;1;0;/home/myth/_HANU/pisf/herlps.pl;0;4
-FILE_NAME_2=0;Perl;0;16;1;1;0;/home/myth/_HANU/pisf/spsowm/train_ga_mod.pl;0;4
+FILE_NAME_2=2897;Perl;0;16;1;1;0;/home/myth/_HANU/pisf/spsowm/train_ga_mod.pl;0;4
+FILE_NAME_3=2662;Perl;0;16;1;1;0;/home/myth/_HANU/pisf/spsowm/misc.pl;0;4
 
 [VTE]
 last_dir=/home/myth

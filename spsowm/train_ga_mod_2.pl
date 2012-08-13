@@ -24,6 +24,7 @@
 #*                                                                      *
 #************************************************************************
 
+sub run{
 $start_time = time ();
 
 require "./config.pl";
@@ -62,10 +63,8 @@ srand (time ^ $$ ^ unpack "%L*", `ps axww | gzip -f`);
 #{
 #	&read_chromosome ($POPULATION[0]);
 #}
-
-$IMAGE = "../pgm/spam/31.pgm";
 # Read image
-&read_image ($IMAGE);
+&read_image ($_[0]);
 
 
 $iter = 0;
@@ -94,7 +93,7 @@ while (1)
 
 	if ($BEST_OBJECTIVE < $save_best_obj)
 	{
-		&print_chromosome (\@BEST_CHROMOSOME);
+		&add_chromosome (\@BEST_CHROMOSOME, $_[1]);
 
 		$save_best_obj = $BEST_OBJECTIVE;
         print $time." ".$iter." ".$BEST_OBJECTIVE."\n";
@@ -107,3 +106,5 @@ while (1)
 
 	last if ($BEST_OBJECTIVE <= $OPTIMAL);
 }
+}
+return true;

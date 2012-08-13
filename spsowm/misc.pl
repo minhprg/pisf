@@ -21,6 +21,7 @@
 #*   use of this software.                                              *
 #*                                                                      *
 #************************************************************************
+use File::Basename;
 
 sub initialization
 {
@@ -151,8 +152,10 @@ sub store_population
 sub add_chromosome
 {
 	my ($ch, $file) = @_;
+	my ($name, $dir) = fileparse $file;
+	eval {mkdir($dir);};
 	
-	open PC_FP, ">./entropy_$file.txt";
+	open PC_FP, ">$file.txt";
 	for (my $k = 0; $k < $NUMBER_OF_INPUT - 1; $k ++)
 	{
 		print PC_FP $ch->[$k]." ";

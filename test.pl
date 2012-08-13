@@ -4,10 +4,22 @@ use Image::BMP;
 
 require "algorithms.pl";
 
-my $img2 = new Image::BMP;
-$img2->open_file('test.bmp');
-my $color = $img2->xy(202,10);        # Get pixel at 100,100
-my ($r,$g,$b) = $img2->xy_rgb(202,40);
-print "Size:".$img2->{Width}.'-'.$img2->{Height}."\n";
-print "Color: ".$img2->{ColorsUsed}."\n";
-print $r.'-'.$g.'-'.$b."\n";
+#param 0: set[1 or 2 or 3 or 4]
+#param 1: 0 => get spam, 1 => get ham, 2 => get all.
+@ts = &getAllThreshold(1, 0);
+my @test = ();
+my @arr = (12, 23,24, 21, 12);
+
+for(my $i = 0; $i < 4; $i++){
+	push @test, [@arr];
+}
+@distinct = &getDistinctThreshold(@test);
+
+foreach $t (@distinct){
+	#foreach $i (@t){print "$i ";}
+	print "row: ";
+	for (my $i=0; $i<5; $i++){
+		print $t->[$i]." ";
+	}
+	print "\n";
+}

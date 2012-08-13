@@ -24,9 +24,9 @@
 #*                                                                      *
 #************************************************************************
 
+sub run{
+$start_time = time ();
 
-
-require "./config.pl";
 require "./misc.pl";
 require "./ga.pl";
 require "./entropy.pl";
@@ -48,81 +48,62 @@ $BEST_OBJECTIVE = 10000000000;
 
 $save_best_obj = 100;
 
+$|=1;
 
+srand (time ^ $$ ^ unpack "%L*", `ps axww | gzip -f`);
+
+# Initiate a population
+
+&restore_population ();
+
+&initialization_ga ();
 
 #if ($ARGV[0])
 #{
 #	&read_chromosome ($POPULATION[0]);
 #}
-
-
 # Read image
-my $dir = "../pgm/spam";
-opendir(DIR, $dir);
-while(my $file = readdir(DIR)){
-	if (not ($file eq "." || $file eq "..")){
-		$start_time = time ();
-		@BEST_CHROMOSOME = undef;
-		@POPULATION = undef;
-		@POPULATION2 = undef;
-		@OBJECTIVE = undef;
-		@OBJECTIVE2 = undef;
-		@TEMP = undef;
-		@GREY_MAX = undef;
-		@PROP_I = undef;
-		$|=1;
-
-		srand (time ^ $$ ^ unpack "%L*", `ps axww | gzip -f`);
-
-		# Initiate a population
-
-		&restore_population ();
-
-		&initialization_ga ();
-		
-		print "processing $file ";
-		#read each file.
-		&read_image ($dir."/".$file);
-
-		$iter = 0;
-
-		while (1)
-		{
-			$iter ++;
-
-		#	&evaluation ();
-		#	&evaluation_manhattan ();
-
-			&evaluation_image ();
+&read_image ($_[0]);
 
 
-			&selection ();
-			&mutation ();
-			&crossover ();
+$iter = 0;
 
-		# Remain the best chromosome in the population
+while (1)
+{
+        $iter ++;
 
-			&copy_chromosome (\@BEST_CHROMOSOME, $POPULATION[0]);
-			   $OBJECTIVE[0] = $BEST_OBJECTIVE;
+#	&evaluation ();
+#	&evaluation_manhattan ();
 
-				$time = time () - $start_time;
+	&evaluation_image ();
 
 
-			if ($BEST_OBJECTIVE < $save_best_obj)
-			{
-				&add_chromosome (\@BEST_CHROMOSOME, $dir.$file);
+	&selection ();
+	&mutation ();
+	&crossover ();
 
-				$save_best_obj = $BEST_OBJECTIVE;
-				print $time." ".$iter." ".$BEST_OBJECTIVE."\n";
+# Remain the best chromosome in the population
 
-			}
+	&copy_chromosome (\@BEST_CHROMOSOME, $POPULATION[0]);
+       $OBJECTIVE[0] = $BEST_OBJECTIVE;
 
-			#print $time." ".$iter." ".$BEST_OBJECTIVE."\n";
+        $time = time () - $start_time;
 
-			last if ($time > $MAX_TIME);
 
-			last if ($BEST_OBJECTIVE <= $OPTIMAL);
-		}
-		print "completed\n";
+	if ($BEST_OBJECTIVE < $save_best_obj)
+	{
+		&add_chromosome (\@BEST_CHROMOSOME, $_[1]);
+
+		$save_best_obj = $BEST_OBJECTIVE;
+        print $time." ".$iter." ".$BEST_OBJECTIVE."\n";
+
 	}
+
+        #print $time." ".$iter." ".$BEST_OBJECTIVE."\n";
+
+        last if ($time > $MAX_TIME);
+
+	last if ($BEST_OBJECTIVE <= $OPTIMAL);
 }
+}
+return true;
