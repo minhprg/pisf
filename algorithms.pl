@@ -32,11 +32,11 @@ sub getAllThreshold{
 			chop $line;
 			$line =~ s/[^\d]+$//;
 			my @a = split /\s+/, $line;
-			push @threshold, [@a];
+			push @threshold, @a;
 		}
 	}
 	
-	if ($type eq 0 or $type eq 2)
+	if ($type eq 1 or $type eq 2)
 	{
 		my $dir = "features/$set/ham/";
 		opendir (SPAM, $dir);
@@ -47,7 +47,7 @@ sub getAllThreshold{
 			chop $line;
 			$line =~ s/[^\d]+$//;
 			my @a = split /\s+/, $line;
-			push @threshold, [@a];
+			push @threshold, @a;
 		}
 	}
 	return @threshold;
