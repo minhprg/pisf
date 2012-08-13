@@ -33,8 +33,20 @@ sub learnBayesianThreshold{
 }
 
 sub getDistinctThreshold{
-	 my @unique = grep { ! $Seen{ $elem }++ } @_;
-	 return @unique;
+	if ($_[0] eq undef || $_[1] eq undef){
+		print "Params required\n";
+		return;
+	} 
+	my (@array, $size) = @_;
+	my @result = ();
+	my $arrCount = @array;
+	
+	for(my $i=0; $i<$arrCount-1; $i++){
+		for(my $j=0; $j<$size;){
+			
+		}
+	}
+	
 }
 
 #type: 0 -> read spam, 1 -> get ham, 2 => get all. default 0;
