@@ -9,8 +9,10 @@ use utf8;
 @HAM_SCORES;
 $TESTCASE = 1;
 
-learnBayesianThreshold();
+#learnBayesianThreshold();
 
-print &getAllThreshold($TESTCASE, 1);
-
+my @arr = &getAllThreshold($TESTCASE, 1);
+foreach $t (@arr){
+	print "$t \n";
+}
 1;
