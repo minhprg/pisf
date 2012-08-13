@@ -1,9 +1,35 @@
 #!/usr/bin/perl
 use utf8;
-use Image::BMP;
 
-sub naiveBayesianClassifer {
+require "misc.pl";
+
+sub naiveBayesianClassifer{
 	
+}
+
+sub learnBayesianThreshold{
+	my $set = $TESTCASE; # define SET
+	my @vocab = &getAllThreshold($TESTCASE, 2);
+	
+	for ($i = 0; $i < 2; $i++) {
+		my $docs = 50;
+		my $PROB_V = 50 / 100;
+		my $text_j = &getAllThreshold($TESTCASE, $i);; # get all thresholds
+		my @n = &getDistinctThreshold(@vocab); # number of distinct thresholds
+		for ($j = 0; $j < scalar(grep {defined $_} @vocab); $j++) {
+			my $n_k = &getNK(@text_j, @vocab[$j]); # number of time threshold @vocab[$j] occurs in $text_j
+			my $PROB_W = ($n_k + 1) / (scalar(grep {defined $_} @n) + scalar(grep {defined $_} @vocab));
+			print $PROB_W;
+			if ($j == 0) {
+				# save to SPAM @spam_scores ...
+				push @SPAM_SCORES, $PROB_W;
+			}
+			else {
+				# save to HAM @ham_scores ...
+				push @HAM_SCORES, $PROB_W;
+			}
+		}
+	}
 }
 
 sub getDistinctThreshold{
@@ -36,7 +62,7 @@ sub getAllThreshold{
 		}
 	}
 	
-	if ($type eq 0 or $type eq 2)
+	if ($type eq 1 or $type eq 2)
 	{
 		my $dir = "features/$set/ham/";
 		opendir (SPAM, $dir);
