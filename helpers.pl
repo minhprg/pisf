@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 
 use utf8;
-use Image::BMP;
 use Image::Magick;
 use File::Basename;
 

@@ -1,8 +1,16 @@
 #!/usr/bin/perl
 
 require "algorithms.pl";
-require "helpers.pl";
+require "misc.pl";
 
 use utf8;
 
-return true;
+@SPAM_SCORES;
+@HAM_SCORES;
+$TESTCASE = 1;
+
+learnBayesianThreshold();
+
+print &getAllThreshold($TESTCASE, 1);
+
+1;
