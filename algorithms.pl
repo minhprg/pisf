@@ -37,16 +37,40 @@ sub getDistinctThreshold{
 		print "Params required\n";
 		return;
 	} 
-	my (@array, $size) = @_;
+	my @tempThreshold = @_;
 	my @result = ();
-	my $arrCount = @array;
+	my $size = pop @tempThreshold;
+	my $tCount;
+	my $isDuplicate = true;
 	
-	for(my $i=0; $i<$arrCount-1; $i++){
-		for(my $j=0; $j<$size;){
-			
+	while(1){
+		my @tSet = ();
+		for(0..$size-1){push @tSet, shift @tempThreshold;}
+		$tCount = @tempThreshold;
+		for(my $i=0; $i<$tCount - $size; $i++){
+			$isDuplicate = true;
+			for(my $j=0; $j<$size; $j++){
+				$i = $i+$j;
+				print "loop $j:$i\n";
+				if ($tSet[$j] ne $tempThreshold[$i]){
+					$i = $i+$size-$j;
+					$j = $size;
+					$isDuplicate = false;
+				}
+			}
+			if ($isDuplicate eq true){
+				$i = $tCount; #end loop because duplicate found.
+				print "found\n";
+			}
+		} 
+		if ($isDuplicate eq false){
+			print "add\n";
+			push @result, @tSet;
 		}
+		
+		last if ($tCount < $size);
 	}
-	
+	return @result;
 }
 
 #type: 0 -> read spam, 1 -> get ham, 2 => get all. default 0;
