@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 use utf8;
+use List::MoreUtils qw/ uniq /;
 
 require "misc.pl";
 
@@ -33,44 +34,7 @@ sub learnBayesianThreshold{
 }
 
 sub getDistinctThreshold{
-	if ($_[0] eq undef || $_[1] eq undef){
-		print "Params required\n";
-		return;
-	} 
-	my @tempThreshold = @_;
-	my @result = ();
-	my $size = pop @tempThreshold;
-	my $tCount;
-	my $isDuplicate = true;
-	
-	while(1){
-		my @tSet = ();
-		for(0..$size-1){push @tSet, shift @tempThreshold;}
-		$tCount = @tempThreshold;
-		for(my $i=0; $i<$tCount - $size; $i++){
-			$isDuplicate = true;
-			for(my $j=0; $j<$size; $j++){
-				$i = $i+$j;
-				print "loop $j:$i\n";
-				if ($tSet[$j] ne $tempThreshold[$i]){
-					$i = $i+$size-$j;
-					$j = $size;
-					$isDuplicate = false;
-				}
-			}
-			if ($isDuplicate eq true){
-				$i = $tCount; #end loop because duplicate found.
-				print "found\n";
-			}
-		} 
-		if ($isDuplicate eq false){
-			print "add\n";
-			push @result, @tSet;
-		}
-		
-		last if ($tCount < $size);
-	}
-	return @result;
+	my @result = uniq @_;
 }
 
 #type: 0 -> read spam, 1 -> get ham, 2 => get all. default 0;
