@@ -2,9 +2,11 @@
 use utf8;
 use Image::BMP;
 
-require "algorithms.pl";
+require "helpers.pl";
 
-@arr = &getVocabulary();
-$c = @arr;
-print "@arr\n";
+my $start_time = time();
+&readFolder("bmp/spam");
+my $time = time() - $start_time;
+print "Time: $time\n";
+
 
