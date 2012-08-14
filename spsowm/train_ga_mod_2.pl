@@ -96,7 +96,7 @@ while (1)
 		&add_chromosome (\@BEST_CHROMOSOME, $_[1]);
 
 		$save_best_obj = $BEST_OBJECTIVE;
-        print $time." ".$iter." ".$BEST_OBJECTIVE."\n";
+        #print $time." ".$iter." ".$BEST_OBJECTIVE."\n";
 
 	}
 
