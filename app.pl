@@ -8,22 +8,18 @@ use utf8;
 
 @SPAM_SCORES = ();
 @HAM_SCORES = ();
-$TESTCASE = 1;
+$TESTCASE = 4;
+$PROB_V = 0.5;
+$DATA_SIZE = 51;
+
+@r = getOneImage(0,1,$TESTCASE);
+foreach $t (@r) {
+	print "$t \n";
+}
 
 learnBayesianThreshold();
 
+naiveBayesianClassifer(0);
+#naiveBayesianClassifer(1);
 
-
-my @arr = &getAllThreshold($TESTCASE, 1);
-my @b = &getDistinctThreshold(@arr);
-foreach $t (@b){
-
-
-
-my @arr = &getAllThreshold($TESTCASE, 2);
-my @b = &getDistinctThreshold(@arr);
-my @c = uniq @SPAM_SCORES;
-foreach $t(@c){
-	print "$t \n";
-}
 1;

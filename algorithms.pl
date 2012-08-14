@@ -5,35 +5,76 @@ use List::MoreUtils qw/ uniq /;
 require "misc.pl";
 
 sub naiveBayesianClassifer{
-	@t = $_;
-	foreach $item (@t) {
+	my $type = $_[0];
+	print "Start testing... with type $type \n";
+	sleep (2);
+	
+	my $correct_rate = 0;
+	
+	for ($i = 1; $i <= $DATA_SIZE; $i++) {
+		my $spam;
+		my $ham;
+		for ($j = 0; $j < 2; $j++) {
+			@img = getOneImage($j, $i, $TESTCASE);
+			#@img = getDistinctThreshold(@img);
+			my $vnb = log($PROB_V);
+			foreach $t (@img) {
+				if ($type eq 0) {
+					$score = @SPAM_SCORES[$t - 1];
+					#print "$score\n";
+				}
+				else {
+					$score = @HAM_SCORES[$t - 1];
+					#print "$score\n";
+				}
+				$vnb = $vnb + log($score);
+			}
+			
+			if ($j eq 0) { # save score to spam
+				$spam = $vnb;
+			}
+			else {
+				$ham = $vnb;
+			}
+		}
 		
+		if ($type eq 0) {
+			if ($spam > $ham) {
+				$correct_rate = $correct_rate + 1;
+				#print "Correct rate: $correct_rate / 52 \n";
+			}
+		}
+		else {
+			if ($ham > $spam) {
+				$correct_rate = $correct_rate + 1;
+				#print "Correct rate: $correct_rate / 52 \n";
+			}
+		}
 	}
+	print "OVERALL: ". ($correct_rate / $DATA_SIZE * 100). "% \n"; 
 }
 
 sub learnBayesianThreshold{
 	my $set = $TESTCASE; # define SET
-	my @vocab = &getVocabulary();
+	my @vocab = &getVocabulary;
 	
 	for ($i = 0; $i < 2; $i++) {
-		my $docs = 50;
-		my $PROB_V = 50 / 100;
+		my $docs = $DATA_SIZE;
+		my $PROB_V = 0.5;
 		my @text_j =  getTextJ($i); # get all thresholds by class
 		my @n = &getDistinctThreshold(@text_j); # number of distinct thresholds
-		for ($j = 0; $j < scalar(@vocab); $j++) {
+		for ($j = 0; $j < 256; $j++) {
 			my $n_k = 0; # number of time threshold @vocab[$j] occurs in $text_j
 			my $k = 0;
 			foreach $item (@text_j) {
-				#print "Comparing @vocab[$j] and $item : $n_k \n";
-				if ($item eq @vocab[$j]) {
+				if ($item eq $j) {
 					$n_k = $n_k + 1;
 					$k = $k + 1;
-					#print $n_k."\n";
 				}
 			}
 			
 			my $PROB_W = ($n_k + 1) / (scalar(@n) + scalar(@vocab));
-			#print $n_k."\n";
+			#print "$i. Working with color: $j . Score = $PROB_W \n";
 			if ($i == 0) {
 				# save to SPAM @spam_scores ...
 				push @SPAM_SCORES, $PROB_W;
@@ -44,6 +85,8 @@ sub learnBayesianThreshold{
 			}
 		}
 	}
+	
+	print "Training done! Now start to test...\n";
 }
 
 sub getDistinctThreshold{
@@ -79,6 +122,27 @@ sub getTextJ {
 		my @a = split /\s+/, $line;
 		push @result, @a;
 	}
+	return @result;
+}
+
+sub getOneImage {
+	my $type = $_[0];
+	my $index = $_[1];
+	my $set = $_[2];
+	
+	my $dir = "features/$set/spam/";
+	if ($_[0] eq 1) { $dir = "features/$set/ham/";}
+	
+	my @result = ();
+	#read each file in the directory
+	opendir (DIR, $dir) or die ("Unable to open $dir\n");
+	open(FILE, $dir.$index.".pgm.txt");
+	#ignore the first 3 lines.
+	my $line = <FILE>;
+	chop $line;
+	$line =~ s/[^\d]+$//;
+	my @a = split /\s+/, $line;
+	push @result, @a;
 	return @result;
 }
 
