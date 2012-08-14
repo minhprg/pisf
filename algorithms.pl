@@ -54,25 +54,35 @@ sub getDistinctThreshold{
 sub getVocabulary {
 	my @vocab = ();
 	
-	my $dir = "pgm/spam/";	
-	opendir(SPAM, $dir);
-	while(my $s = readdir(SPAM))
-	{
-		open(FILE, $dir.$s);
-		my $line = <FILE>;
-		chop $line;
-		$line =~ s/[^\d]+$//;
-		my @a = split /\s+/, $line;
-		push @threshold, @a;
-	}
-	
-	$dir = "pgm/ham/";
-	opendir(HAM, $dir);
+	push @vocab, &getTextJ(0);
+	push @vocab, &getTextJ(1);
+	return @vocab;
 }
 
 # Get gray-scale color code of ONE SPAM OR HAM - 0 = SPAM. 1 = HAM
 sub getTextJ {
+	my $dir = "pgm/spam/";
+	if ($_[0] eq 1) { $dir = "pgm/ham/";}
 	
+	my @result = ();
+	#read each file in the directory
+	opendir (DIR, $dir) or die ("Unable to open $dir\n");
+	while (my $f = readdir(DIR)){
+		open(FILE, $dir.$f);
+		print "$dir $f\n";
+		#ignore the first 3 lines.
+		my $line = <FILE>;
+		$line 	 = <FILE>;
+		$line 	 = <FILE>;
+		$line 	 = <FILE>;
+		chop $line;
+		$line =~ s/[^\d]+$//;
+		print "$line\n";
+		last;
+		my @a = split /\s+/, $line;
+		push @result, @a;
+	}
+	return @result;
 }
 
 
