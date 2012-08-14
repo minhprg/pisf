@@ -69,7 +69,6 @@ sub getTextJ {
 	opendir (DIR, $dir) or die ("Unable to open $dir\n");
 	while (my $f = readdir(DIR)){
 		open(FILE, $dir.$f);
-		print "$dir $f\n";
 		#ignore the first 3 lines.
 		my $line = <FILE>;
 		$line 	 = <FILE>;
@@ -77,8 +76,6 @@ sub getTextJ {
 		$line 	 = <FILE>;
 		chop $line;
 		$line =~ s/[^\d]+$//;
-		print "$line\n";
-		last;
 		my @a = split /\s+/, $line;
 		push @result, @a;
 	}

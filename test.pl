@@ -4,7 +4,7 @@ use Image::BMP;
 
 require "algorithms.pl";
 
-@arr = &getTextJ(0);
-$a = @arr;
-print "$a\n";
+@arr = &getVocabulary();
+$c = @arr;
+print "@arr\n";
 

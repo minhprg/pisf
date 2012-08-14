@@ -85,23 +85,20 @@ while (1)
 # Remain the best chromosome in the population
 
 	&copy_chromosome (\@BEST_CHROMOSOME, $POPULATION[0]);
-       $OBJECTIVE[0] = $BEST_OBJECTIVE;
+    $OBJECTIVE[0] = $BEST_OBJECTIVE;
 
-        $time = time () - $start_time;
+	$time = time () - $start_time;
 
 
 	if ($BEST_OBJECTIVE < $save_best_obj)
 	{
 		&add_chromosome (\@BEST_CHROMOSOME, $_[1]);
-
 		$save_best_obj = $BEST_OBJECTIVE;
         print $time." ".$iter." ".$BEST_OBJECTIVE."\n";
-
 	}
+	#print $time." ".$iter." ".$BEST_OBJECTIVE."\n";
 
-        #print $time." ".$iter." ".$BEST_OBJECTIVE."\n";
-
-        last if ($time > $MAX_TIME);
+	last if ($time > $MAX_TIME);
 
 	last if ($BEST_OBJECTIVE <= $OPTIMAL);
 }
