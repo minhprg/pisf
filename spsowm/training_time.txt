@@ -1,0 +1,12 @@
+spam, file count: 180, Total time: 10980 (s), set: 1
+spam, file count: 249, Total time: 15189 (s), set: 1
+spam, file count: 250, Total time: 15250 (s), set: 1
+spam, file count: 250, Total time: 15250 (s), set: 1
+spam, file count: 180, Total time: 10980 (s), set: 2
+spam, file count: 249, Total time: 15189 (s), set: 2
+spam, file count: 250, Total time: 15250 (s), set: 2
+spam, file count: 250, Total time: 15250 (s), set: 2
+spam, file count: 180, Total time: 10980 (s), set: 4
+spam, file count: 249, Total time: 15189 (s), set: 4
+spam, file count: 250, Total time: 15250 (s), set: 4
+spam, file count: 250, Total time: 15250 (s), set: 4

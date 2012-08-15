@@ -5,7 +5,7 @@ require './config.pl';
 require 'train_ga_mod_2.pl';
 
 $type = "spam";
-$set = 2;
+$set = 4;
 $outfile = "";
 $count = 0;
 #system ("/usr/bin/perl init_pop.pl"); #run init pop

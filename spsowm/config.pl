@@ -1,6 +1,6 @@
 # Settings of BBNN
 
-$NUMBER_OF_INPUT = 6;
+$NUMBER_OF_INPUT = 20;
 $IMAGE = "/home/qa/spsowm-5.0/lena.pgm";
 
 
