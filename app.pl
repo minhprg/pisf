@@ -8,7 +8,7 @@ use utf8;
 
 @SPAM_SCORES = ();
 @HAM_SCORES = ();
-$TESTCASE = 1;
+$TESTCASE = 3;
 $PROB_V = 0.05376344;
 $DATA_SIZE = 51;
 

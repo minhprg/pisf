@@ -5,6 +5,7 @@ use List::MoreUtils qw/ uniq /;
 require "misc.pl";
 
 sub naiveBayesianClassifer{
+	my $time1 = time;
 	my $type = $_[0];
 	print "Start testing... with type $type \n";
 	sleep (2);
@@ -51,12 +52,15 @@ sub naiveBayesianClassifer{
 			}
 		}
 	}
-	print "OVERALL: ". ($correct_rate / $DATA_SIZE * 100). "% \n"; 
+	my $time2 = time;
+	my $run = $time2-$time1;
+	print "OVERALL: ". ($correct_rate / $DATA_SIZE * 100). "% . Time to run $run\n"; 
 }
 
 sub learnBayesianThreshold{
 	my $set = $TESTCASE; # define SET
 	my @vocab = &getVocabulary;
+	my $time1 = time;
 	
 	for ($i = 0; $i < 2; $i++) {
 		my $docs = $DATA_SIZE;
@@ -86,7 +90,9 @@ sub learnBayesianThreshold{
 		}
 	}
 	
-	print "Training done! Now start to test...\n";
+	my $time2 = time;
+	my $run = $time2-$time1;
+	print "Training done in $run seconds! Now start to test...\n";
 }
 
 sub getDistinctThreshold{
