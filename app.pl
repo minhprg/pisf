@@ -8,8 +8,8 @@ use utf8;
 
 @SPAM_SCORES = ();
 @HAM_SCORES = ();
-$TESTCASE = 4;
-$PROB_V = 0.5;
+$TESTCASE = 1;
+$PROB_V = 0.05376344;
 $DATA_SIZE = 51;
 
 @r = getOneImage(0,1,$TESTCASE);
